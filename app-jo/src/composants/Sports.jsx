@@ -7,7 +7,7 @@ function Sports() {
     useEffect(() => {
         const fetchSports = async () => {
             try {
-                const response = await fetch('/api/sports', {
+                const response = await fetch('http://localhost:3000/api/sports', {
                     method: 'GET'
                 });
                 if (!response.ok) {
@@ -32,7 +32,7 @@ function Sports() {
             ) : (
                 <ul>
                     {sports.map(sport => (
-                        <li key={sport.id}>{sport.nom}</li>
+                        <li key={sport.id}>{sport.sport}</li>
                     ))}
                 </ul>
             )}
