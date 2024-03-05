@@ -76,7 +76,7 @@ app.post('/api/sports', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
-
+ 
 //Read Routes
 app.get('/api/epreuves', async (req, res) => {
   try {
