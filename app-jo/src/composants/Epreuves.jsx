@@ -12,7 +12,7 @@ const Epreuves = () => {
         };
 
         fetchEpreuves();
-
+  
     }, []);
 
     return (
