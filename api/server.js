@@ -8,13 +8,13 @@ const PORT = process.env.PORT;
 
 // Connexion à la base de données MySQL
 const pool = createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password:  process.env.DB_PASSWORD,
-    database:  process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 // Middleware
@@ -26,22 +26,22 @@ app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-      const [rows] = await pool.execute('SELECT * FROM users WHERE identifiant = ?', [username]);
+    const [rows] = await pool.execute('SELECT * FROM users WHERE identifiant = ?', [username]);
 
-      if (rows.length === 0) {
-          return res.status(400).json({ message: 'Nom d\'utilisateur incorrect' });
-      }
+    if (rows.length === 0) {
+      return res.status(400).json({ message: 'Nom d\'utilisateur incorrect' });
+    }
 
-      const user = rows[0];
+    const user = rows[0];
 
-      if (!bcrypt.compareSync(password, user.password)) {
-          return res.status(400).json({ message: 'Mot de passe incorrect' });
-      }
+    if (!bcrypt.compareSync(password, user.password)) {
+      return res.status(400).json({ message: 'Mot de passe incorrect' });
+    }
 
-      res.json({ message: 'Authentification réussie' });
+    res.json({ message: 'Authentification réussie' });
   } catch (error) {
-      console.error('Erreur lors de l\'authentification : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de l\'authentification : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
@@ -51,14 +51,14 @@ app.post('/api/epreuves', async (req, res) => {
   const { idSport, epreuve } = req.body;
 
   try {
-      const [result] = await pool.execute('INSERT INTO epreuves (id_sports, epreuves) VALUES (?, ?)', [idSport, epreuve]);
+    const [result] = await pool.execute('INSERT INTO epreuves (id_sports, epreuves) VALUES (?, ?)', [idSport, epreuve]);
 
-      const newEpreuveId = result.insertId;
+    const newEpreuveId = result.insertId;
 
-      res.status(201).json({ id: newEpreuveId, idSport, epreuve });
+    res.status(201).json({ id: newEpreuveId, idSport, epreuve });
   } catch (error) {
-      console.error('Erreur lors de la création de l\'épreuve : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la création de l\'épreuve : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
@@ -66,26 +66,26 @@ app.post('/api/sports', async (req, res) => {
   const { sport } = req.body;
 
   try {
-      const [result] = await pool.execute('INSERT INTO sports (sports) VALUES (?)', [sport]);
+    const [result] = await pool.execute('INSERT INTO sports (sports) VALUES (?)', [sport]);
 
-      const newSporteId = result.insertId;
+    const newSporteId = result.insertId;
 
-      res.status(201).json({ id: newSporteId, sport });
+    res.status(201).json({ id: newSporteId, sport });
   } catch (error) {
-      console.error('Erreur lors de la création du sport : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la création du sport : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
 //Read Routes
 app.get('/api/epreuves', async (req, res) => {
-    try {
-      const [rows, fields] = await pool.query('SELECT * FROM epreuves');
-      res.json(rows);
-    } catch (error) {
-        console.error('Erreur lors de la récupération des données : ', error);
-        res.status(500).json({ message: 'Erreur serveur' });
-    }
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM epreuves');
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
 });
 
 app.get('/api/sports', async (req, res) => {
@@ -93,8 +93,32 @@ app.get('/api/sports', async (req, res) => {
     const [rows, fields] = await pool.query('SELECT * FROM sports');
     res.json(rows);
   } catch (error) {
-      console.error('Erreur lors de la récupération des données : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la récupération des données : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.get('/api/epreuves/:id', async (req, res) => {
+  const epreuveId = req.params.id;
+  
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM epreuves WHERE id = ?', [epreuveId]);
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.get('/api/sports/:id', async (req, res) => {
+  const sportId = req.params.id;
+  
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM sports WHERE id = ?', [sportId]);
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
@@ -104,16 +128,16 @@ app.put('/api/epreuves/:id', async (req, res) => {
   const { epreuve } = req.body;
 
   try {
-      const [result] = await pool.execute('UPDATE epreuves SET epreuves = ? WHERE id = ?', [epreuve, epreuveId]);
+    const [result] = await pool.execute('UPDATE epreuves SET epreuves = ? WHERE id = ?', [epreuve, epreuveId]);
 
-      if (result.affectedRows === 0) {
-          return res.status(404).json({ message: 'L\'épreuve spécifiée n\'existe pas' });
-      }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'L\'épreuve spécifiée n\'existe pas' });
+    }
 
-      res.json({ id: epreuveId, epreuve });
+    res.json({ id: epreuveId, epreuve });
   } catch (error) {
-      console.error('Erreur lors de la mise à jour de l\'épreuve : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la mise à jour de l\'épreuve : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
@@ -122,16 +146,16 @@ app.put('/api/sports/:id', async (req, res) => {
   const { sport } = req.body;
 
   try {
-      const [result] = await pool.execute('UPDATE sports SET sports = ? WHERE id = ?', [sport, sportId]);
+    const [result] = await pool.execute('UPDATE sports SET sports = ? WHERE id = ?', [sport, sportId]);
 
-      if (result.affectedRows === 0) {
-          return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
-      }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
+    }
 
-      res.json({ id: sportId, sport });
+    res.json({ id: sportId, sport });
   } catch (error) {
-      console.error('Erreur lors de la mise à jour du sport : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la mise à jour du sport : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
@@ -141,17 +165,15 @@ app.delete('/api/epreuves/:id', async (req, res) => {
   const epreuveId = req.params.id;
 
   try {
-      // Suppression de l'épreuve de la base de données
-      const [result] = await pool.execute('DELETE FROM epreuves WHERE id = ?', [epreuveId]);
+    const [result] = await pool.execute('DELETE FROM epreuves WHERE id = ?', [epreuveId]);
 
-      if (result.affectedRows === 0) {
-          return res.status(404).json({ message: 'L\'épreuve spécifiée n\'existe pas' });
-      }
-      // Réponse indiquant que l'épreuve a été supprimée avec succès
-      res.json({ id: epreuveId, message: 'L\'épreuve a été supprimée avec succès' });
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'L\'épreuve spécifiée n\'existe pas' });
+    }
+    res.json({ id: epreuveId, message: 'L\'épreuve a été supprimée avec succès' });
   } catch (error) {
-      console.error('Erreur lors de la suppression de l\'épreuve : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la suppression de l\'épreuve : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
@@ -159,19 +181,19 @@ app.delete('/api/sports/:id', async (req, res) => {
   const sportId = req.params.id;
 
   try {
-      const [result] = await pool.execute('DELETE FROM sports WHERE id = ?', [sportId]);
+    const [result] = await pool.execute('DELETE FROM sports WHERE id = ?', [sportId]);
 
-      if (result.affectedRows === 0) {
-          return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
-      }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
+    }
 
-      res.json({ id: sportId, message: 'Le sport a été supprimée avec succès' });
+    res.json({ id: sportId, message: 'Le sport a été supprimée avec succès' });
   } catch (error) {
-      console.error('Erreur lors de la suppression du sport : ', error);
-      res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la suppression du sport : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
 app.listen(PORT, () => {
-    console.log(`Serveur démarré sur le port ${PORT}`);
+  console.log(`Serveur démarré sur le port ${PORT}`);
 });
