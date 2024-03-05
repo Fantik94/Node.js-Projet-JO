@@ -7,7 +7,7 @@ function App() {
   // Fonction pour charger les données des sports depuis l'API
   const fetchSportsData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/data');
+      const response = await fetch('http://localhost:3000/api/epreuves');
       console.log(response);
       if (!response.ok) {
         throw new Error('Network response was not ok');

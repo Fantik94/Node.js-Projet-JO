@@ -17,45 +17,159 @@ const pool = createPool({
     queueLimit: 0
 });
 
-// Middleware pour parser le JSON
+// Middleware
 app.use(express.json());
 app.use(cors());
 
 // Route pour l'authentification
 app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    try {
-        // Récupération des informations de l'utilisateur depuis la base de données
-        const [rows] = await pool.execute('SELECT * FROM users WHERE identifiant = ?', [username]);
+  try {
+      const [rows] = await pool.execute('SELECT * FROM users WHERE identifiant = ?', [username]);
 
-        // Vérification si l'utilisateur existe
-        if (rows.length === 0) {
-            return res.status(400).json({ message: 'Nom d\'utilisateur incorrect' });
-        }
+      if (rows.length === 0) {
+          return res.status(400).json({ message: 'Nom d\'utilisateur incorrect' });
+      }
 
-        const user = rows[0];
+      const user = rows[0];
 
-        // Vérification du mot de passe
-        if (!bcrypt.compareSync(password, user.password)) {
-            return res.status(400).json({ message: 'Mot de passe incorrect' });
-        }
+      if (!bcrypt.compareSync(password, user.password)) {
+          return res.status(400).json({ message: 'Mot de passe incorrect' });
+      }
 
-        res.json({ message: 'Authentification réussie' });
-    } catch (error) {
-        console.error('Erreur lors de l\'authentification : ', error);
-        res.status(500).json({ message: 'Erreur serveur' });
-    }
+      res.json({ message: 'Authentification réussie' });
+  } catch (error) {
+      console.error('Erreur lors de l\'authentification : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
 });
 
-app.get('/api/data', async (req, res) => {
+/******ROUTES CRUD POUR EPREUVES ET SPORTS********/
+//Create Routes
+app.post('/api/epreuves', async (req, res) => {
+  const { idSport, epreuve } = req.body;
+
+  try {
+      const [result] = await pool.execute('INSERT INTO epreuves (id_sports, epreuves) VALUES (?, ?)', [idSport, epreuve]);
+
+      const newEpreuveId = result.insertId;
+
+      res.status(201).json({ id: newEpreuveId, idSport, epreuve });
+  } catch (error) {
+      console.error('Erreur lors de la création de l\'épreuve : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.post('/api/sports', async (req, res) => {
+  const { sport } = req.body;
+
+  try {
+      const [result] = await pool.execute('INSERT INTO sports (sports) VALUES (?)', [sport]);
+
+      const newSporteId = result.insertId;
+
+      res.status(201).json({ id: newSporteId, sport });
+  } catch (error) {
+      console.error('Erreur lors de la création du sport : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+//Read Routes
+app.get('/api/epreuves', async (req, res) => {
     try {
-      const [rows, fields] = await pool.query('SELECT * FROM sports');
+      const [rows, fields] = await pool.query('SELECT * FROM epreuves');
       res.json(rows);
     } catch (error) {
         console.error('Erreur lors de la récupération des données : ', error);
         res.status(500).json({ message: 'Erreur serveur' });
     }
+});
+
+app.get('/api/sports', async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM sports');
+    res.json(rows);
+  } catch (error) {
+      console.error('Erreur lors de la récupération des données : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+//Update Routes
+app.put('/api/epreuves/:id', async (req, res) => {
+  const epreuveId = req.params.id;
+  const { epreuve } = req.body;
+
+  try {
+      const [result] = await pool.execute('UPDATE epreuves SET epreuves = ? WHERE id = ?', [epreuve, epreuveId]);
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ message: 'L\'épreuve spécifiée n\'existe pas' });
+      }
+
+      res.json({ id: epreuveId, epreuve });
+  } catch (error) {
+      console.error('Erreur lors de la mise à jour de l\'épreuve : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.put('/api/sports/:id', async (req, res) => {
+  const sportId = req.params.id;
+  const { sport } = req.body;
+
+  try {
+      const [result] = await pool.execute('UPDATE sports SET sports = ? WHERE id = ?', [sport, sportId]);
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
+      }
+
+      res.json({ id: sportId, sport });
+  } catch (error) {
+      console.error('Erreur lors de la mise à jour du sport : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+
+//Delete Routes
+app.delete('/api/epreuves/:id', async (req, res) => {
+  const epreuveId = req.params.id;
+
+  try {
+      // Suppression de l'épreuve de la base de données
+      const [result] = await pool.execute('DELETE FROM epreuves WHERE id = ?', [epreuveId]);
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ message: 'L\'épreuve spécifiée n\'existe pas' });
+      }
+      // Réponse indiquant que l'épreuve a été supprimée avec succès
+      res.json({ id: epreuveId, message: 'L\'épreuve a été supprimée avec succès' });
+  } catch (error) {
+      console.error('Erreur lors de la suppression de l\'épreuve : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.delete('/api/sports/:id', async (req, res) => {
+  const sportId = req.params.id;
+
+  try {
+      const [result] = await pool.execute('DELETE FROM sports WHERE id = ?', [sportId]);
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
+      }
+
+      res.json({ id: sportId, message: 'Le sport a été supprimée avec succès' });
+  } catch (error) {
+      console.error('Erreur lors de la suppression du sport : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
+  }
 });
 
 app.listen(PORT, () => {
