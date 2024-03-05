@@ -80,7 +80,7 @@ app.post('/api/sports', async (req, res) => {
 //Read Routes
 app.get('/api/epreuves', async (req, res) => {
   try {
-    const [rows, fields] = await pool.query('SELECT * FROM epreuves');
+    const [rows, fields] = await pool.query('SELECT epreuves.*, sports.sport FROM epreuves JOIN sports ON sports.id = epreuves.id_sports');
     res.json(rows);
   } catch (error) {
     console.error('Erreur lors de la récupération des données : ', error);

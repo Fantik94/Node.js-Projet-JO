@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './composants/Navbar';
 import './App.css'
 import Home from './composants/Home';
+import Epreuves from './composants/Epreuves';
 
 const Sports = () => <div>Sports Page</div>;
-const Epreuves = () => <div>Epreuves Page</div>;
 const SitesOlympiques = () => <div>Sites Olympiques Page</div>;
 const Connexion = () => <div>Connexion Page</div>;
 
