@@ -14,8 +14,8 @@ CREATE TABLE `epreuves` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `epreuves` (`id`, `id_sports`, `epreuves`) VALUES
-(1,	'1',	'100m'),
-(2,	'1',	'200m'),
+(1,	'1',	'101m .I.'),
+(2,	'1',	'202m o_o'),
 (3,	'1',	'400m'),
 (4,	'1',	'800m'),
 (5,	'1',	'1500m'),
@@ -48,7 +48,8 @@ INSERT INTO `epreuves` (`id`, `id_sports`, `epreuves`) VALUES
 (32,	'4',	'Tournoi masculin'),
 (33,	'4',	'Tournoi féminin'),
 (34,	'5',	'Tournoi masculin'),
-(35,	'5',	'Tournoi féminin')
+(35,	'5',	'Tournoi féminin'),
+(37,	'52',	'Patate enflammé')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `id_sports` = VALUES(`id_sports`), `epreuves` = VALUES(`epreuves`);
 
 DROP TABLE IF EXISTS `sports`;
@@ -59,7 +60,7 @@ CREATE TABLE `sports` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `sports` (`id`, `sports`) VALUES
-(1,	'Athlétisme'),
+(1,	'Authisme'),
 (2,	'aviron'),
 (3,	'badminton'),
 (4,	'basketball'),
@@ -103,7 +104,14 @@ INSERT INTO `sports` (`id`, `sports`) VALUES
 (42,	'breaking'),
 (43,	'escalade sportive'),
 (44,	'skateboard'),
-(45,	'surf')
+(45,	'surf'),
+(46,	'canne à pêche'),
+(47,	'canne à pêche'),
+(48,	'canne à pêche'),
+(49,	'canne à pêche'),
+(50,	'canne à pêche'),
+(51,	'canne à pêche'),
+(52,	'Lancé de patates')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `sports` = VALUES(`sports`);
 
 DROP TABLE IF EXISTS `users`;
@@ -118,4 +126,4 @@ INSERT INTO `users` (`id`, `identifiant`, `password`) VALUES
 (1,	'admin',	'$2a$12$96NJW0zoD56e1rqQxMIyQO2xw.3Dd26wRiAkPSQEFWrF4nzMu1I.S')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `identifiant` = VALUES(`identifiant`), `password` = VALUES(`password`);
 
--- 2024-03-05 11:08:02
+-- 2024-03-05 13:43:15
