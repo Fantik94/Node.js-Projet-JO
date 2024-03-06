@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './composants/Navbar';
 import './App.css'
 import Home from './composants/Home';
+import Sports from './composants/Sports';
 import Epreuves from './composants/Epreuves';
 import Connexion from './composants/Connexion';
-//coucou damien
-const Sports = () => <div>Sports Page</div>;
+
 const SitesOlympiques = () => <div>Sites Olympiques Page</div>;
 
 function App() {

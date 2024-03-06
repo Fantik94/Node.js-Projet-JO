@@ -32,7 +32,7 @@ function Sports() {
             ) : (
                 <ul>
                     {sports.map(sport => (
-                        <li key={sport.id}>{sport.sport}</li>
+                        <li key={sport.id}>{sport.name_sport}</li>
                     ))}
                 </ul>
             )}
