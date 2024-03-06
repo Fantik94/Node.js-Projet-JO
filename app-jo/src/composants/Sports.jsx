@@ -40,7 +40,11 @@ function Sports() {
                                 className="rounded-t-lg object-cover h-48 w-full"
                             />
                             <div className="p-5">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{sport.name_sport}</h5>
+                                <a href={`/sports/${sport.id}`}>
+                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+                                    {sport.name_sport}
+                                    </h5>
+                                </a>
                             </div>
                         </div>
                     ))}

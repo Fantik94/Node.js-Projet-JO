@@ -7,6 +7,7 @@ import Sports from './composants/Sports';
 import Epreuves from './composants/Epreuves';
 import Connexion from './composants/Connexion';
 import SitesOlympiques from './composants/SitesOlympiques';
+import Single from './composants/Single';
 //coucou damien
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/epreuves" element={<Epreuves />} />
           <Route path="/sites" element={<SitesOlympiques />} />
           <Route path="/login" element={<Connexion />} />
+          <Route path="/sports/:id" element={<Single/>} />
         </Routes>
       </div>
     </Router>
