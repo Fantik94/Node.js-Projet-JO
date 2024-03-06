@@ -1,5 +1,3 @@
--- Adminer 4.8.1 MySQL 10.4.32-MariaDB dump
-
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
@@ -187,4 +185,4 @@ INSERT INTO `users` (`id`, `identifiant`, `password`) VALUES
 (1,	'admin',	'$2a$12$96NJW0zoD56e1rqQxMIyQO2xw.3Dd26wRiAkPSQEFWrF4nzMu1I.S')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `identifiant` = VALUES(`identifiant`), `password` = VALUES(`password`);
 
--- 2024-03-06 09:29:12
+-- 2024-03-06 09:32:27
