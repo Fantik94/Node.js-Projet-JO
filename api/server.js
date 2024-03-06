@@ -194,6 +194,27 @@ app.delete('/api/sports/:id', async (req, res) => {
   }
 });
 
+
+app.get('/api/podium/:idEpreuve', async (req, res) => {
+  const { idEpreuve } = req.params;
+  
+  try {
+      const [rows] = await pool.query(`
+          SELECT * FROM athletes 
+          WHERE id_epreuve = ? 
+          ORDER BY FIELD(medaille, 'Or', 'Argent', 'Bronze') 
+          LIMIT 3
+      `, [idEpreuve]);
+      res.json(rows);
+  } catch (error) {
+      console.error('Error fetching podium: ', error);
+      res.status(500).send('Server Error');
+  }
+});
+
+
+
+
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });

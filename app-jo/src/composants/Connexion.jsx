@@ -11,7 +11,7 @@ const Connexion = () => {
         if (error === 'Authentification réussie. Redirection...') {
             setTimeout(() => {
                 window.location.href = '/';
-            }, 2000);
+            }, 1200);
         }
     }, [error]);
 
