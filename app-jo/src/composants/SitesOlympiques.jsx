@@ -30,12 +30,12 @@ function SitesOlympiques() {
         if (!sportsParSite[site.site_olympique]) {
             sportsParSite[site.site_olympique] = [];
         }
-        sportsParSite[site.site_olympique].push(site.name_sport);
+        sportsParSite[site.site_olympique].push({ name: site.name_sport, image: site.img_sport });
     });
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-2xl md:text-3xl pl-2 my-2 border-l-4 mt-10 mb-10 font-sans font-bold border-yellow-400  dark:text-gray-500">Sites Olympiques</h1>
+            <h1 className="text-2xl md:text-3xl pl-2 my-2 border-l-4 mt-10 mb-10 font-sans font-bold border-yellow-400 dark:text-gray-500">Sites Olympiques</h1>
             {loading ? (
                 <p>Chargement en cours...</p>
             ) : (
@@ -45,7 +45,10 @@ function SitesOlympiques() {
                             <iframe className="w-full h-40 mb-4 object-cover rounded-lg" src={site} title="Site Olympique"></iframe>
                             <ul className="list-disc pl-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" style={{ maxHeight: '200px' }}>
                                 {sports.map((sport, index) => (
-                                    <li key={index}>{sport}</li>
+                                    <li key={index} className="flex items-center mb-2">
+                                        <img src={sport.image} alt={sport.name} className="w-20 h-30 mr-2" />
+                                        {sport.name}
+                                    </li>
                                 ))}
                             </ul>
                         </div>
