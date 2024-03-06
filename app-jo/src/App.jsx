@@ -9,7 +9,10 @@ import Connexion from './composants/Connexion';
 import SitesOlympiques from './composants/SitesOlympiques';
 import PrivateRoute from './composants/context/PrivateRoute';
 import Admin from './composants/backoffice/Admin';
+import AdminSports from './composants/backoffice/Sports';
+import AdminEpreuves from './composants/backoffice/Epreuves';
 import Single from './composants/Single';
+
 
 function App() {
   return (
@@ -25,6 +28,8 @@ function App() {
         <Route path="/login" element={<Connexion />} />
         <Route element={<PrivateRoute />}>
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/sports" element={<AdminSports />} />
+          <Route path="/admin/epreuves" element={<AdminEpreuves />} />
         </Route>
       </Routes>
     </div>

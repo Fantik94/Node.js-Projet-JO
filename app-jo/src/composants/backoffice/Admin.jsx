@@ -1,34 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
-    const [sports, setSports] = useState([]);
-    const [epreuves, setEpreuves] = useState([]);
-
-    useEffect(() => {
-    }, []);
-
-    const handleAddOrUpdateSport = () => {
-    };
-
-    const handleAddOrUpdateEpreuve = () => {
-    };
-
-    const handleDeleteSport = (sportId) => {
-    };
-
-    const handleDeleteEpreuve = (epreuveId) => {
-    };
-
     return (
-        <div>
-            <h2>Dashboard Admin</h2>
-            <div>
-                <h3>Gestion des Sports</h3>
-                <button onClick={handleAddOrUpdateSport}>Ajouter/Modifier un Sport</button>
-            </div>
-            <div>
-                <h3>Gestion des Épreuves</h3>
-                <button onClick={handleAddOrUpdateEpreuve}>Ajouter/Modifier une Épreuve</button>
+        <div className="container mx-auto px-4">
+            <h1 className="text-4xl font-bold text-gray-800 text-center my-10">Bienvenue sur le Dashboard</h1>
+            <div className="flex justify-center">
+                <Link to="/admin/sports" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Gérer les sports</Link>
+                <Link to="/admin/epreuves" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Gérer les épreuves</Link>
             </div>
         </div>
     );
