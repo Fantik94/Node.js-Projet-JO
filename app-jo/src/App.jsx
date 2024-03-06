@@ -6,8 +6,8 @@ import Home from './composants/Home';
 import Sports from './composants/Sports';
 import Epreuves from './composants/Epreuves';
 import Connexion from './composants/Connexion';
-
-const SitesOlympiques = () => <div>Sites Olympiques Page</div>;
+import SitesOlympiques from './composants/SitesOlympiques';
+//coucou damien
 
 function App() {
   return (
