@@ -19,7 +19,7 @@ const Navbar = () => {
                 </div>
 
                 <div>
-                    <Link to="/connexion" className="hover:text-gray-800">
+                    <Link to="/login" className="hover:text-gray-800">
                         <FontAwesomeIcon icon={faUserCircle} size="2x" />
                     </Link>
                 </div>
