@@ -8,7 +8,6 @@ const Epreuves = () => {
             const response = await fetch('http://localhost:3000/api/epreuves');
             const data = await response.json();
             setEpreuves(data);
-            console.log(data);
         };
 
         fetchEpreuves();
