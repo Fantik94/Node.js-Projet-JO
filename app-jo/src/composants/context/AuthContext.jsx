@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext({
   authData: null,
@@ -6,7 +6,15 @@ export const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
-  const [authData, setAuthData] = useState(null);
+  const [authData, setAuthData] = useState(JSON.parse(localStorage.getItem('authData')));
+
+  useEffect(() => {
+    if (authData) {
+      localStorage.setItem('authData', JSON.stringify(authData));
+    } else {
+      localStorage.removeItem('authData');
+    }
+  }, [authData]);
 
   const providerAuthData = {
     authData,
