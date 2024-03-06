@@ -105,7 +105,7 @@ function SitesOlympiques() {
                                 <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" style={{ maxHeight: '200px' }}>
                                     {site.sports.map((sport, sportIndex) => (
                                         <div key={sportIndex} className={`flex items-center mb-2 ${highlightedIndex === sportIndex ? 'bg-gray-200' : ''}`} ref={sportRefs.current[sport.name_sport]}>
-                                            <img src={sport.img_sport} alt={sport.name_sport} className="w-20 h-20 mr-4 rounded-full" />
+                                            <img src={sport.img_sport} alt={sport.name_sport} className="w-16 h-16 mr-4 rounded-full" />
                                             <span className="text-gray-800">{sport.name_sport}</span>
                                         </div>
                                     ))}
