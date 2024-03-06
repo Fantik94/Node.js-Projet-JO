@@ -5,9 +5,10 @@ import './App.css'
 import Home from './composants/Home';
 import Epreuves from './composants/Epreuves';
 import Connexion from './composants/Connexion';
+import SitesOlympiques from './composants/SitesOlympiques';
 //coucou damien
+
 const Sports = () => <div>Sports Page</div>;
-const SitesOlympiques = () => <div>Sites Olympiques Page</div>;
 
 function App() {
   return (

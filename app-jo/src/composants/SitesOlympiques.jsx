@@ -24,20 +24,33 @@ function SitesOlympiques() {
         fetchSitesOlympiques();
     }, []);
 
+    // Créer une structure de données pour stocker les sports par site olympique
+    const sportsParSite = {};
+    sitesOlympiques.forEach(site => {
+        if (!sportsParSite[site.site_olympique]) {
+            sportsParSite[site.site_olympique] = [];
+        }
+        sportsParSite[site.site_olympique].push(site.name_sport);
+    });
+
     return (
-        <div>
-            <h1>Sites Olympiques</h1>
+        <div className="container mx-auto">
+            <h1 className="text-2xl md:text-3xl pl-2 my-2 border-l-4 mt-10 mb-10 font-sans font-bold border-yellow-400  dark:text-gray-500">Sites Olympiques</h1>
             {loading ? (
                 <p>Chargement en cours...</p>
             ) : (
-                <ul>
-                    {sitesOlympiques.map(site => (
-                        <div key={site.id}>
-                            <strong>Sport:</strong> {site.name_sport}
-                            <strong>Site olympique:</strong> {site.site_olympique}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {Object.entries(sportsParSite).map(([site, sports]) => (
+                        <div key={site} className="border rounded-lg p-4 bg-white shadow-md">
+                            <iframe className="w-full h-40 mb-4 object-cover rounded-lg" src={site} title="Site Olympique"></iframe>
+                            <ul className="list-disc pl-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" style={{ maxHeight: '200px' }}>
+                                {sports.map((sport, index) => (
+                                    <li key={index}>{sport}</li>
+                                ))}
+                            </ul>
                         </div>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     );
