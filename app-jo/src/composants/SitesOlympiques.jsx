@@ -39,7 +39,7 @@ function SitesOlympiques() {
             {loading ? (
                 <p>Chargement en cours...</p>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                     {Object.entries(sportsParSite).map(([site, sports]) => (
                         <div key={site} className="border rounded-lg p-4 bg-white shadow-md">
                             <iframe className="w-full h-40 mb-4 object-cover rounded-lg" src={site} title="Site Olympique"></iframe>
