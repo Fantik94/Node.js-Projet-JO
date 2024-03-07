@@ -9,6 +9,9 @@ const Admin = () => {
                 <Link to="/admin/sports" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Gérer les sports</Link>
                 <Link to="/admin/epreuves" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Gérer les épreuves</Link>
             </div>
+            <div className='flex justify-center mt-6'>
+                <Link to="/admin/athletes" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Gérer les athlètes</Link>
+            </div>
         </div>
     );
 };

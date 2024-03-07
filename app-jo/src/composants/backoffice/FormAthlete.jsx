@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-const FormEpreuve = () => {
+const FormAthlete = () => {
     const [name_epreuve, setNameEpreuve] = useState('');
     const [id_sport, setIdSport] = useState('');
     const [sports, setSports] = useState([]);
@@ -137,4 +137,4 @@ const FormEpreuve = () => {
     );
 };
 
-export default FormEpreuve;
+export default FormAthlete;

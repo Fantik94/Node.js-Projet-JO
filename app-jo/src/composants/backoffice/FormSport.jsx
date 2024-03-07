@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-const Form_ajout_sport = () => {
+const FormSport = () => {
     const [name_sport, setNameSport] = useState('');
     const [site_olympique, setSiteOlympique] = useState('');
     const [img_sport, setImgSport] = useState('');
@@ -132,4 +132,4 @@ const Form_ajout_sport = () => {
     );
 };
 
-export default Form_ajout_sport;
+export default FormSport;
