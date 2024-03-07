@@ -9,6 +9,7 @@ import Connexion from './composants/Connexion';
 import SitesOlympiques from './composants/SitesOlympiques';
 import PrivateRoute from './composants/context/PrivateRoute';
 import Admin from './composants/backoffice/Admin';
+import Podium from './composants/Podium';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/podium" element={<Podium />} />
         <Route path="/sports" element={<Sports />} />
         <Route path="/epreuves" element={<Epreuves />} />
         <Route path="/sites" element={<SitesOlympiques />} />
