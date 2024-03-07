@@ -15,7 +15,7 @@ const Sidebar = () => {
                     to="/admin"
                     className={({ isActive }) =>
                         isActive
-                            ? "block p-2.5 mb-2 font-medium text-white bg-indigo-700 rounded"
+                            ? "block p-2.5 mb-2 font-medium text-white bg-blue-500 rounded"
                             : "block p-2.5 mb-2 font-medium text-gray-700 rounded hover:bg-gray-100"
                     }
                 >

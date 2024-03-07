@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 function Epreuves() {
     const [epreuves, setEpreuves] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const sidebarWidth = '16rem';
+ 
     useEffect(() => {
         const fetchEpreuves = async () => {
             try {
@@ -42,13 +44,16 @@ function Epreuves() {
         }
     };
     
-    
-
     return (
-        <div className="container mx-auto px-4">
-            <div className="flex justify-center mt-10">
-                <Link to="/admin" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Retour</Link>
-                <Link to="/admin/formepreuve" className="mx-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Ajouter une épreuve</Link>
+        <div className="flex min-h-screen bg-gray-100">
+            <Sidebar/>
+         <div className="flex-1" style={{ paddingLeft: sidebarWidth }}>
+<div className="flex justify-center mt-10"> 
+<button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+
+                    <Link to="/admin">Retour</Link></button>
+                <button type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                <Link to="/admin/formepreuve"></Link> Ajouter une épreuve</button>
             </div>
             <h1 className="text-4xl font-bold text-gray-800 text-center my-10">Liste des épreuves</h1>
             {loading ? (
@@ -83,6 +88,7 @@ function Epreuves() {
                     </table>
                 </div>
             )}
+        </div>
         </div>
     );
 }
