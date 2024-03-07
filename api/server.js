@@ -48,14 +48,14 @@ app.post('/api/login', async (req, res) => {
 /******ROUTES CRUD POUR EPREUVES ET SPORTS********/
 //Create Routes
 app.post('/api/epreuves', async (req, res) => {
-  const { idSport, epreuve } = req.body;
+  const { id_sport, name_epreuve } = req.body;
 
   try {
-    const [result] = await pool.execute('INSERT INTO epreuves (id_sports, epreuves) VALUES (?, ?)', [idSport, epreuve]);
+    const [result] = await pool.execute('INSERT INTO epreuves (id_sport, name_epreuve) VALUES (?, ?)', [id_sport, name_epreuve]);
 
     const newEpreuveId = result.insertId;
 
-    res.status(201).json({ id: newEpreuveId, idSport, epreuve });
+    res.status(201).json({ id: newEpreuveId, id_sport, name_epreuve });
   } catch (error) {
     console.error('Erreur lors de la création de l\'épreuve : ', error);
     res.status(500).json({ message: 'Erreur serveur' });
@@ -124,16 +124,16 @@ app.get('/api/sports/:id', async (req, res) => {
 //Update Routes
 app.put('/api/epreuves/:id', async (req, res) => {
   const epreuveId = req.params.id;
-  const { epreuve } = req.body;
+  const { name_epreuve, id_sport } = req.body;
 
   try {
-    const [result] = await pool.execute('UPDATE epreuves SET epreuves = ? WHERE id = ?', [epreuve, epreuveId]);
+    const [result] = await pool.execute('UPDATE epreuves SET name_epreuve = ?, id_sport = ? WHERE id = ?', [name_epreuve, id_sport, epreuveId]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: 'L\'épreuve spécifiée n\'existe pas' });
     }
 
-    res.json({ id: epreuveId, epreuve });
+    res.json({ id: epreuveId, name_epreuve, id_sport });
   } catch (error) {
     console.error('Erreur lors de la mise à jour de l\'épreuve : ', error);
     res.status(500).json({ message: 'Erreur serveur' });

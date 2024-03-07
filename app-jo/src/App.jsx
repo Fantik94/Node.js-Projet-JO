@@ -11,7 +11,8 @@ import PrivateRoute from './composants/context/PrivateRoute';
 import Admin from './composants/backoffice/Admin';
 import AdminSports from './composants/backoffice/Sports';
 import AdminEpreuves from './composants/backoffice/Epreuves';
-import FormSport from './composants/backoffice/form_sport';
+import FormSport from './composants/backoffice/FormSport';
+import FormEpreuve from './composants/backoffice/FormEpreuve';
 import Single from './composants/Single';
 import Podium from './composants/Podium';
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/admin/sports" element={<AdminSports />} />
           <Route path="/admin/epreuves" element={<AdminEpreuves />} />
           <Route path="/admin/formsport/:id?" element={<FormSport />} />
+          <Route path="/admin/formepreuve/:id?" element={<FormEpreuve />} />
         </Route>
       </Routes>
     </div>

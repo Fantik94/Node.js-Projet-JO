@@ -26,6 +26,9 @@ function Sports() {
     }, []);
 
     const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce sport ?");
+        if (!confirmDelete) return;
+    
         try {
             const response = await fetch(`http://localhost:3000/api/sports/${id}`, {
                 method: 'DELETE'
@@ -37,7 +40,7 @@ function Sports() {
         } catch (error) {
             console.error('Erreur lors de la suppression du sport : ', error);
         }
-    };
+    };    
 
     return (
         <div className="container mx-auto px-4">
