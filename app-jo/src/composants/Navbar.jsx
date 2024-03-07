@@ -13,25 +13,25 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-white text-black p-2 shadow-md">
-            <div className="container mx-auto flex justify-between items-center">
-                <div className="flex items-center">
+        <nav className="bg-white text-black p-2 shadow-md z-50">
+            <div className="container mx-auto flex justify-between items-center z-50">
+                <div className="flex items-center z-50">
                     <Link to="/">
-                        <img src="/logo.webp" alt="Logo" className="h-14 mr-10" />
+                        <img src="/logo.webp" alt="Logo" className="h-14 mr-10 z-50" />
                     </Link>
                     <div className="flex gap-4"> 
-                        <Link to="/sports" className="hover:text-gray-800">Sports</Link>
-                        <Link to="/epreuves" className="hover:text-gray-800">Epreuves</Link>
-                        <Link to="/sites" className="hover:text-gray-800">Sites Olympiques</Link>
-                        <Link to="/podium" className="hover:text-gray-800">Podium</Link>
+                        <Link to="/sports" className="hover:text-gray-800 z-50">Sports</Link>
+                        <Link to="/epreuves" className="hover:text-gray-800 z-50">Epreuves</Link>
+                        <Link to="/sites" className="hover:text-gray-800 z-50">Sites Olympiques</Link>
+                        <Link to="/podium" className="hover:text-gray-800 z-50">Podium</Link>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-4">
                     {authData && (
                         <>
-                            <Link to="/admin" className="hover:text-gray-800">Admin</Link>
-                            <button onClick={handleLogout} className="hover:text-gray-800">
+                            <Link to="/admin" className="hover:text-gray-800 z-50">Admin</Link>
+                            <button onClick={handleLogout} className="hover:text-gray-800 z-50">
                                 <FontAwesomeIcon icon={faSignOutAlt} size="1x" />
                             </button>
                         </>
