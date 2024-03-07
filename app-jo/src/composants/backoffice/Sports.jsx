@@ -25,12 +25,26 @@ function Sports() {
         fetchSports();
     }, []);
 
-    const handleDelete = (id) => {
-        // Fonction pour gérer la suppression du sport avec l'ID donné
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/sports/${id}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error('Erreur lors de la suppression du sport');
+            }
+            setSports(sports.filter(sport => sport.id !== id));
+        } catch (error) {
+            console.error('Erreur lors de la suppression du sport : ', error);
+        }
     };
 
     return (
         <div className="container mx-auto px-4">
+            <div className="flex justify-center mt-10">
+                <Link to="/admin" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Retour</Link>
+                <Link to="/admin" className="mx-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Ajouter un sport</Link>
+            </div>
             <h1 className="text-4xl font-bold text-gray-800 text-center my-10">Liste des sports</h1>
             {loading ? (
                 <p>Chargement en cours...</p>
