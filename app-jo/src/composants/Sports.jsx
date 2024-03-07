@@ -34,18 +34,18 @@ function Sports() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-10">
                     {sports.map((sport) => (
                         <div key={sport.id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
-                            <img
-                                src={sport.img_sport}
-                                alt={sport.name_sport}
-                                className="rounded-t-lg object-cover h-48 w-full"
-                            />
-                            <div className="p-5">
-                                <a href={`/sports/${sport.id}`}>
+                            <a href={`/sports/${sport.id}`}>
+                                <img
+                                    src={sport.img_sport}
+                                    alt={sport.name_sport}
+                                    className="rounded-t-lg object-cover h-48 w-full"
+                                />
+                                <div className="p-5">
                                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                                     {sport.name_sport}
                                     </h5>
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                         </div>
                     ))}
                     </div>
