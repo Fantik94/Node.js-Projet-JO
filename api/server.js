@@ -63,21 +63,20 @@ app.post('/api/epreuves', async (req, res) => {
 });
 
 app.post('/api/sports', async (req, res) => {
-  const { sport } = req.body;
+  const { name_sport, site_olympique, img_sport } = req.body;
 
   try {
-    const [result] = await pool.execute('INSERT INTO sports (sports) VALUES (?)', [sport]);
+    const [result] = await pool.execute('INSERT INTO sports (name_sport, site_olympique, img_sport) VALUES (?, ?, ?)', [name_sport, site_olympique, img_sport]);
 
-    const newSporteId = result.insertId;
+    const newSportId = result.insertId;
 
-    res.status(201).json({ id: newSporteId, sport });
+    res.status(201).json({ id: newSportId, name_sport, site_olympique, img_sport });
   } catch (error) {
     console.error('Erreur lors de la création du sport : ', error);
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
- //ceci est un test
-//Read Routes
+
 app.get('/api/epreuves', async (req, res) => {
   try {
     const [rows, fields] = await pool.query('SELECT epreuves.*, sports.name_sport , sports.img_sport FROM epreuves JOIN sports ON sports.id = epreuves.id_sport');
@@ -143,22 +142,21 @@ app.put('/api/epreuves/:id', async (req, res) => {
 
 app.put('/api/sports/:id', async (req, res) => {
   const sportId = req.params.id;
-  const { sport } = req.body;
+  const { name_sport, site_olympique, img_sport } = req.body;
 
   try {
-    const [result] = await pool.execute('UPDATE sports SET sports = ? WHERE id = ?', [sport, sportId]);
+    const [result] = await pool.execute('UPDATE sports SET name_sport = ?, site_olympique = ?, img_sport = ? WHERE id = ?', [name_sport, site_olympique, img_sport, sportId]);
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
+      return res.status(404).json({ message: 'Le sport spécifié n\'existe pas' });
     }
 
-    res.json({ id: sportId, sport });
+    res.json({ id: sportId, name_sport, site_olympique, img_sport });
   } catch (error) {
     console.error('Erreur lors de la mise à jour du sport : ', error);
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
-
 
 //Delete Routes
 app.delete('/api/epreuves/:id', async (req, res) => {

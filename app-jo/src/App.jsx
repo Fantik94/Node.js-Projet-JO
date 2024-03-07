@@ -11,6 +11,7 @@ import PrivateRoute from './composants/context/PrivateRoute';
 import Admin from './composants/backoffice/Admin';
 import AdminSports from './composants/backoffice/Sports';
 import AdminEpreuves from './composants/backoffice/Epreuves';
+import FormSport from './composants/backoffice/form_sport';
 import Single from './composants/Single';
 
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/sports" element={<AdminSports />} />
           <Route path="/admin/epreuves" element={<AdminEpreuves />} />
+          <Route path="/admin/formsport/:id?" element={<FormSport />} />
         </Route>
       </Routes>
     </div>

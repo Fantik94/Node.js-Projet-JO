@@ -43,7 +43,7 @@ function Sports() {
         <div className="container mx-auto px-4">
             <div className="flex justify-center mt-10">
                 <Link to="/admin" className="mx-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Retour</Link>
-                <Link to="/admin" className="mx-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Ajouter un sport</Link>
+                <Link to="/admin/formsport" className="mx-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Ajouter un sport</Link>
             </div>
             <h1 className="text-4xl font-bold text-gray-800 text-center my-10">Liste des sports</h1>
             {loading ? (
@@ -69,7 +69,7 @@ function Sports() {
                                     <td className="px-6 py-4 whitespace-nowrap">{sport.id}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{sport.name_sport}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <Link to={`/modifierCarousel/${sport.id}`} className="text-indigo-600 hover:text-indigo-900">Modifier</Link>
+                                        <Link to={`/admin/formsport/${sport.id}`} className="text-indigo-600 hover:text-indigo-900">Modifier</Link>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <button onClick={() => handleDelete(sport.id)} className="text-red-600 hover:text-red-900">Supprimer</button>
