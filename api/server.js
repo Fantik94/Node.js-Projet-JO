@@ -109,6 +109,18 @@ app.get('/api/epreuves/:id', async (req, res) => {
   }
 });
 
+app.get('/api/epreuve/:id', async (req, res) => {
+  const epreuveId = req.params.id;
+  
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM epreuves WHERE id = ?', [epreuveId]);
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
 app.get('/api/sports/:id', async (req, res) => {
   const sportId = req.params.id;
   
