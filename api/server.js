@@ -77,6 +77,21 @@ app.post('/api/sports', async (req, res) => {
   }
 });
 
+app.post('/api/athletes', async (req, res) => {
+  const { id_epreuve, name_athlete, pays, medaille, best_result } = req.body;
+
+  try {
+    const [result] = await pool.execute('INSERT INTO athletes (id_epreuve, name_athlete, country, medaille, best_result) VALUES (?, ?, ?, ?, ?)', [id_epreuve, name_athlete, pays, medaille, best_result]);
+
+    const newEpreuveId = result.insertId;
+
+    res.status(201).json({ id: newEpreuveId, id_epreuve, name_athlete, pays, medaille, best_result });
+  } catch (error) {
+    console.error('Erreur lors de la création de l\'athlète : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
 app.get('/api/epreuves', async (req, res) => {
   try {
     const [rows, fields] = await pool.query('SELECT epreuves.*, sports.name_sport , sports.img_sport FROM epreuves JOIN sports ON sports.id = epreuves.id_sport');
@@ -90,6 +105,16 @@ app.get('/api/epreuves', async (req, res) => {
 app.get('/api/sports', async (req, res) => {
   try {
     const [rows, fields] = await pool.query('SELECT * FROM sports');
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.get('/api/athletes', async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query('SELECT athletes.*, epreuves.name_epreuve FROM athletes JOIN epreuves ON epreuves.id = athletes.id_epreuve');
     res.json(rows);
   } catch (error) {
     console.error('Erreur lors de la récupération des données : ', error);
@@ -126,6 +151,18 @@ app.get('/api/sports/:id', async (req, res) => {
   
   try {
     const [rows, fields] = await pool.query('SELECT * FROM sports WHERE id = ?', [sportId]);
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.get('/api/athlete/:id', async (req, res) => {
+  const athleteId = req.params.id;
+  
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM athletes WHERE id = ?', [athleteId]);
     res.json(rows);
   } catch (error) {
     console.error('Erreur lors de la récupération des données : ', error);
@@ -170,6 +207,24 @@ app.put('/api/sports/:id', async (req, res) => {
   }
 });
 
+app.put('/api/athletes/:id', async (req, res) => {
+  const athleteId = req.params.id;
+  const { id_epreuve, name_athlete, pays, medaille, best_result } = req.body;
+
+  try {
+    const [result] = await pool.execute('UPDATE athletes SET id_epreuve = ?, name_athlete = ?, country = ?, medaille = ?, best_result = ? WHERE id = ?', [id_epreuve, name_athlete, pays, medaille, best_result, athleteId]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'L\'athlète spécifiée n\'existe pas' });
+    }
+
+    res.json({ id: athleteId, id_epreuve, name_athlete, pays, medaille, best_result });
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour de l\'athlète : ', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
 //Delete Routes
 app.delete('/api/epreuves/:id', async (req, res) => {
   const epreuveId = req.params.id;
@@ -201,6 +256,23 @@ app.delete('/api/sports/:id', async (req, res) => {
   } catch (error) {
     console.error('Erreur lors de la suppression du sport : ', error);
     res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+app.delete('/api/athletes/:id', async (req, res) => {
+  const athleteId = req.params.id;
+
+  try {
+      const [result] = await pool.execute('DELETE FROM athletes WHERE id = ?', [athleteId]);
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ message: 'L\'athlète spécifiée n\'existe pas' });
+      }
+
+      res.json({ id: athleteId, message: 'L\'athlète a été supprimée avec succès' });
+  } catch (error) {
+      console.error('Erreur lors de la suppression de l\'athlète : ', error);
+      res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 
