@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 const Admin = () => {
+    const sidebarWidth = '16rem';
+
     return (
         <div className="flex min-h-screen bg-gray-100">
             <Sidebar />
-            <div className="flex-1 p-10 text-2xl font-bold">
+            <div className="flex-1 p-10 text-2xl font-bold" style={{ marginLeft: sidebarWidth }}>
                 <header className="mb-12">
                     <h1 className="text-4xl text-gray-800">Dashboard Admin</h1>
                 </header>
