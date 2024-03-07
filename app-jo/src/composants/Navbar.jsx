@@ -23,6 +23,7 @@ const Navbar = () => {
                         <Link to="/sports" className="hover:text-gray-800">Sports</Link>
                         <Link to="/epreuves" className="hover:text-gray-800">Epreuves</Link>
                         <Link to="/sites" className="hover:text-gray-800">Sites Olympiques</Link>
+                        <Link to="/podium" className="hover:text-gray-800">Podium</Link>
                     </div>
                 </div>
 

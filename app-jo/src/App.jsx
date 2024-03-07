@@ -11,6 +11,8 @@ import PrivateRoute from './composants/context/PrivateRoute';
 import Admin from './composants/backoffice/Admin';
 import Podium from './composants/Podium';
 
+
+
 function App() {
   return (
     <Router>
@@ -18,12 +20,11 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/podium" element={<Podium />} />
         <Route path="/sports" element={<Sports />} />
         <Route path="/epreuves" element={<Epreuves />} />
         <Route path="/sites" element={<SitesOlympiques />} />
         <Route path="/login" element={<Connexion />} />
-        {/* Envelopper les routes nécessitant une authentification */}
+        <Route path="/podium" element={<Podium />} />
         <Route element={<PrivateRoute />}>
           {/* Mettre ici la route Admin protégée */}
           <Route path="/admin" element={<Admin />} />
