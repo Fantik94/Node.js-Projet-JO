@@ -76,8 +76,7 @@ app.post('/api/sports', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
- //ceci est un test
-//Read Routes
+
 app.get('/api/epreuves', async (req, res) => {
   try {
     const [rows, fields] = await pool.query('SELECT epreuves.*, sports.name_sport , sports.img_sport FROM epreuves JOIN sports ON sports.id = epreuves.id_sport');
@@ -158,7 +157,6 @@ app.put('/api/sports/:id', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
-
 
 //Delete Routes
 app.delete('/api/epreuves/:id', async (req, res) => {
