@@ -12,6 +12,8 @@ import Admin from './composants/backoffice/Admin';
 import AdminSports from './composants/backoffice/Sports';
 import AdminEpreuves from './composants/backoffice/Epreuves';
 import Single from './composants/Single';
+import Podium from './composants/Podium';
+
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
         <Route path="/epreuves" element={<Epreuves />} />
         <Route path="/sites" element={<SitesOlympiques />} />
         <Route path="/login" element={<Connexion />} />
+        <Route path="/podium" element={<Podium />} />
         <Route element={<PrivateRoute />}>
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/sports" element={<AdminSports />} />

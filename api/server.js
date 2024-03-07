@@ -63,14 +63,14 @@ app.post('/api/epreuves', async (req, res) => {
 });
 
 app.post('/api/sports', async (req, res) => {
-  const { sport } = req.body;
+  const { name_sport, site_olympique, img_sport } = req.body;
 
   try {
-    const [result] = await pool.execute('INSERT INTO sports (sports) VALUES (?)', [sport]);
+    const [result] = await pool.execute('INSERT INTO sports (name_sport, site_olympique, img_sport) VALUES (?, ?, ?)', [name_sport, site_olympique, img_sport]);
 
-    const newSporteId = result.insertId;
+    const newSportId = result.insertId;
 
-    res.status(201).json({ id: newSporteId, sport });
+    res.status(201).json({ id: newSportId, name_sport, site_olympique, img_sport });
   } catch (error) {
     console.error('Erreur lors de la création du sport : ', error);
     res.status(500).json({ message: 'Erreur serveur' });
@@ -143,16 +143,16 @@ app.put('/api/epreuves/:id', async (req, res) => {
 
 app.put('/api/sports/:id', async (req, res) => {
   const sportId = req.params.id;
-  const { sport } = req.body;
+  const { name_sport, site_olympique, img_sport } = req.body;
 
   try {
-    const [result] = await pool.execute('UPDATE sports SET sports = ? WHERE id = ?', [sport, sportId]);
+    const [result] = await pool.execute('UPDATE sports SET name_sport = ?, site_olympique = ?, img_sport = ? WHERE id = ?', [name_sport, site_olympique, img_sport, sportId]);
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Le sport spécifiée n\'existe pas' });
+      return res.status(404).json({ message: 'Le sport spécifié n\'existe pas' });
     }
 
-    res.json({ id: sportId, sport });
+    res.json({ id: sportId, name_sport, site_olympique, img_sport });
   } catch (error) {
     console.error('Erreur lors de la mise à jour du sport : ', error);
     res.status(500).json({ message: 'Erreur serveur' });
@@ -205,6 +205,36 @@ app.get('/api/podium/:idEpreuve', async (req, res) => {
           ORDER BY FIELD(medaille, 'Or', 'Argent', 'Bronze') 
           LIMIT 3
       `, [idEpreuve]);
+      res.json(rows);
+  } catch (error) {
+      console.error('Error fetching podium: ', error);
+      res.status(500).send('Server Error');
+  }
+});
+
+app.get('/api/podium', async (req, res) => {
+  try {
+      const [rows] = await pool.query(`
+          SELECT 
+              a.id AS athlete_id, 
+              a.name_athlete, 
+              a.medaille, 
+              a.best_result, 
+              e.name_epreuve, 
+              s.name_sport, 
+              s.img_sport 
+          FROM 
+              athletes a 
+          JOIN 
+              epreuves e ON a.id_epreuve = e.id 
+          JOIN 
+              sports s ON e.id_sport = s.id 
+          WHERE 
+              a.medaille IS NOT NULL 
+          ORDER BY 
+              e.id, 
+              FIELD(a.medaille, 'Or', 'Argent', 'Bronze')
+      `);
       res.json(rows);
   } catch (error) {
       console.error('Error fetching podium: ', error);
