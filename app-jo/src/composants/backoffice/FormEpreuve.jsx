@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { validateEpreuve } from '../form/formEpreuve';
 
 const FormEpreuve = () => {
     const [name_epreuve, setNameEpreuve] = useState('');
@@ -53,6 +54,13 @@ const FormEpreuve = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const { error: validationError } = validateEpreuve(name_epreuve);
+        if (validationError) {
+            setError(validationError.details[0].message);
+            return;
+        }
+
         setError('');
 
         try {

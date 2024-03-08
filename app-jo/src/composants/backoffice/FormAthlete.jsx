@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { validateAthlete } from '../form/formAthlete';
 
 const FormAthlete = () => {
     const [name_athlete, setNameAthlete] = useState('');
@@ -59,6 +60,13 @@ const FormAthlete = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const { error: validationError } = validateAthlete(name_athlete, pays, best_result);
+        if (validationError) {
+            setError(validationError.details[0].message);
+            return;
+        }
+
         setError('');
 
         try {

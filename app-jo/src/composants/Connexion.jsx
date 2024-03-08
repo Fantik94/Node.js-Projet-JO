@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from './context/AuthContext';
-import { validateLogin } from '../alerts/connexion';
+import { validateLogin } from './form/formConnexion';
 
 const Connexion = () => {
     const [username, setUsername] = useState('');

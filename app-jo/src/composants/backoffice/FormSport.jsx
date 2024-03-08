@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { validateSport } from '../form/formSport';
 
 const FormSport = () => {
     const [name_sport, setNameSport] = useState('');
@@ -38,6 +39,13 @@ const FormSport = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const { error: validationError } = validateSport(name_sport, site_olympique, img_sport);
+        if (validationError) {
+            setError(validationError.details[0].message);
+            return;
+        }
+
         setError('');
 
         try {
@@ -79,7 +87,7 @@ const FormSport = () => {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label htmlFor="name_sport" className="block mb-2 text-sm font-medium text-gray-900">Nom du sport</label>
-                            <input 
+                            <input
                                 type="text"
                                 name="name_sport"
                                 id="name_sport"
@@ -91,8 +99,8 @@ const FormSport = () => {
                             />
                         </div>
                         <div>
-                        <label htmlFor="site_olympique" className="block mb-2 text-sm font-medium text-gray-900">Site olympique</label>
-                            <input 
+                            <label htmlFor="site_olympique" className="block mb-2 text-sm font-medium text-gray-900">Site olympique</label>
+                            <input
                                 type="text"
                                 name="site_olympique"
                                 id="site_olympique"
@@ -104,8 +112,8 @@ const FormSport = () => {
                             />
                         </div>
                         <div>
-                        <label htmlFor="img_sport" className="block mb-2 text-sm font-medium text-gray-900">Image</label>
-                            <input 
+                            <label htmlFor="img_sport" className="block mb-2 text-sm font-medium text-gray-900">Image</label>
+                            <input
                                 type="text"
                                 name="img_sport"
                                 id="img_sport"
@@ -124,7 +132,7 @@ const FormSport = () => {
                         </div>
                     )}
                     <div className='mt-6'>
-                    <Link to="/admin/sports" className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Retour</Link>
+                        <Link to="/admin/sports" className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Retour</Link>
                     </div>
                 </div>
             </div>
