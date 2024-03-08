@@ -30,7 +30,7 @@ function Athletes() {
     const handleDelete = async (id) => {
         const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette athlète ?");
         if (!confirmDelete) return;
-    
+
         try {
             const response = await fetch(`http://localhost:3000/api/athletes/${id}`, {
                 method: 'DELETE'
@@ -43,17 +43,20 @@ function Athletes() {
             console.error('Erreur lors de la suppression de l\'athlète : ', error);
         }
     };
-    
+
     return (
         <div className="flex">
-            <Sidebar/>
+            <Sidebar />
             <div className="flex-1" style={{ marginLeft: sidebarWidth }}>
                 <div className="flex justify-center mt-10">
-                <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-
-                    <Link to="/admin">Retour</Link></button>
-                    <button type="button" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-                    <Link to="/admin/formathlete">Ajouter un athlète</Link> </button>
+                    <Link to="/admin">
+                        <button type="button" className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                            Retour</button>
+                    </Link>
+                    <Link to="/admin/formathlete">
+                        <button type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                            Ajouter un athlète</button>
+                    </Link>
                 </div>
                 <h1 className="text-4xl font-bold text-gray-800 text-center my-10">Liste des athlètes</h1>
                 {loading ? (
