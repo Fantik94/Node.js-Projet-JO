@@ -54,6 +54,7 @@ Pour lancer le site Web frontend, veuillez suivre les étapes ci-dessous :
     ```
 
 Cela démarrera l'application React et ouvrira une nouvelle fenêtre dans votre navigateur "http://localhost:5173/", affichant le site Web des Jeux Olympiques 2024 à Paris.
+Log admin pour accéder au backoffice : admin - admin
 
 ---
 
