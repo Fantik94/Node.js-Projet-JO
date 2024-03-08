@@ -1,4 +1,8 @@
 # README - Site Web des Jeux Olympiques 2024 à Paris
+Noms des contributeurs :
+- BARBOSA Hugo
+- RINGLER Baptiste
+- RAUNIER Damien
 
 Bienvenue dans le projet du site Web des Jeux Olympiques 2024 à Paris ! Ce projet est conçu pour fournir une plateforme interactive et informative pour les Jeux Olympiques qui se dérouleront à Paris en 2024. Le projet est divisé en deux parties : le backend développé en Node.js et le frontend développé en React.
 
@@ -17,7 +21,11 @@ Pour lancer le serveur Node.js, veuillez suivre les étapes ci-dessous :
     ```
     npm install
     ```
-5. Lancez le serveur en utilisant la commande :
+5. Assurez-vous d'avoir un serveur MySQL installé sur votre système.
+6. Créez une base de données nommée `projet_jo` dans votre serveur MySQL.
+7. Importez le fichier `projet_jo.sql` dans la base de données `projet_jo` que vous avez créée.
+
+8. Lancez le serveur en utilisant la commande :
     ```
     npm start
     ```
